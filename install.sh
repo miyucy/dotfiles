@@ -9,3 +9,6 @@ curl -Lq https://github.com/dandavison/delta/releases/download/0.18.0/delta-0.18
 mv delta "$HOME/.local/bin"
 popd
 rm -rf "$t"
+
+sudo apt update
+sudo apt install --yes bat
