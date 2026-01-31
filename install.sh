@@ -13,3 +13,12 @@ rm -rf "$t"
 sudo apt update
 sudo apt install --yes bat ripgrep
 ln -s /usr/bin/batcat ~/.local/bin/bat
+
+# installed_plugins.json からホストのパスを抽出してリンク作成                                                                                                                                        
+if [ -f "$HOME/.claude/plugins/installed_plugins.json" ]; then                                                                                                                                       
+  host_path=$(grep -o '"/Users/[^"]*/.claude' "$HOME/.claude/plugins/installed_plugins.json" | head -1 | sed 's|/.claude||' | tr -d '"')                                                             
+  if [ -n "$host_path" ] && [ ! -e "$host_path" ]; then                                                                                                                                              
+    sudo mkdir -p "$(dirname "$host_path")"                                                                                                                                                          
+    sudo ln -sf "$HOME" "$host_path"                                                                                                                                                                 
+  fi                                                                                                                                                                                                 
+fi                                                                                                                                                                                                   
