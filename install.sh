@@ -11,7 +11,7 @@ popd
 rm -rf "$t"
 
 sudo apt update
-sudo apt install --yes bat ripgrep
+sudo apt install --yes bat ripgrep tig
 ln -s /usr/bin/batcat ~/.local/bin/bat
 
 # installed_plugins.json からホストのパスを抽出してリンク作成                                                                                                                                        
