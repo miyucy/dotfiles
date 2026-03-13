@@ -12,7 +12,7 @@ rm -rf "$t"
 
 t=$(mktemp -d)
 pushd "$t"
-curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.29.0/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xf
+curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.29.0/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xzf -
 mv rtk ~/.local/bin
 popd
 rm -rf "$t"
