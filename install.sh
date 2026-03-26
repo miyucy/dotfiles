@@ -12,7 +12,7 @@ rm -rf "$t"
 
 t=$(mktemp -d)
 pushd "$t"
-curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.31.0/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xzf -
+curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.33.1/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xzf -
 mv rtk ~/.local/bin
 popd
 rm -rf "$t"
@@ -29,3 +29,5 @@ if [ -f "$HOME/.claude/plugins/installed_plugins.json" ]; then
     sudo ln -sf "$HOME" "$host_path"
   fi
 fi
+
+echo "export RTK_TELEMETRY_DISABLED=1" >> ~/.bashrc
