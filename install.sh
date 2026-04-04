@@ -5,17 +5,19 @@ mkdir -p "$HOME/.local/bin"
 
 t=$(mktemp -d)
 pushd "$t"
-curl -Lq https://github.com/dandavison/delta/releases/download/0.18.2/delta-0.18.2-aarch64-unknown-linux-gnu.tar.gz | tar xzf - --strip-components=1
+curl -Lq https://github.com/dandavison/delta/releases/download/0.19.2/delta-0.19.2-aarch64-unknown-linux-gnu.tar.gz | tar xzf - --strip-components=1
 mv delta ~/.local/bin
 popd
 rm -rf "$t"
 
 t=$(mktemp -d)
 pushd "$t"
-curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.33.1/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xzf -
+curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.34.3/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xzf -
 mv rtk ~/.local/bin
 popd
 rm -rf "$t"
+mkdir -p ~/.config/rtk
+printf "[telemetry]\nenabled = false\n" >> ~/.config/rtk/config.toml
 
 sudo apt update
 sudo apt install --yes bat ripgrep tig
@@ -29,5 +31,3 @@ if [ -f "$HOME/.claude/plugins/installed_plugins.json" ]; then
     sudo ln -sf "$HOME" "$host_path"
   fi
 fi
-
-echo "export RTK_TELEMETRY_DISABLED=1" >> ~/.bashrc
