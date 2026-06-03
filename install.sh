@@ -1,7 +1,20 @@
 #!/bin/bash
 ln -s $(pwd)/dot.bash_aliases ~/.bash_aliases
 
+# installed_plugins.json からホストのパスを抽出してリンク作成
+if [ -f "$HOME/.claude/plugins/installed_plugins.json" ]; then
+  host_path=$(grep -o '"/Users/[^"]*/.claude' "$HOME/.claude/plugins/installed_plugins.json" | head -1 | sed 's|/.claude||' | tr -d '"')
+  if [ -n "$host_path" ] && [ ! -e "$host_path" ]; then
+    sudo mkdir -p "$(dirname "$host_path")"
+    sudo ln -sf "$HOME" "$host_path"
+  fi
+fi
+
 mkdir -p "$HOME/.local/bin"
+
+sudo apt update
+sudo apt install --yes bat ripgrep tig
+ln -s /usr/bin/batcat ~/.local/bin/bat
 
 t=$(mktemp -d)
 pushd "$t"
@@ -19,15 +32,14 @@ rm -rf "$t"
 mkdir -p ~/.config/rtk
 printf "[telemetry]\nenabled = false\n" >> ~/.config/rtk/config.toml
 
-sudo apt update
-sudo apt install --yes bat ripgrep tig
-ln -s /usr/bin/batcat ~/.local/bin/bat
+t=$(mktemp -d)
+pushd "$t"
+git clone --depth 1 --no-tags https://github.com/coderabbitai/git-worktree-runner.git
+cd git-worktree-runner
+./install.sh
+popd
+rm -rf "$t"
 
-# installed_plugins.json からホストのパスを抽出してリンク作成
-if [ -f "$HOME/.claude/plugins/installed_plugins.json" ]; then
-  host_path=$(grep -o '"/Users/[^"]*/.claude' "$HOME/.claude/plugins/installed_plugins.json" | head -1 | sed 's|/.claude||' | tr -d '"')
-  if [ -n "$host_path" ] && [ ! -e "$host_path" ]; then
-    sudo mkdir -p "$(dirname "$host_path")"
-    sudo ln -sf "$HOME" "$host_path"
-  fi
+if [ -x uv ]; then
+  uv tool install --upgrade 'cocoindex-code[full]'
 fi
