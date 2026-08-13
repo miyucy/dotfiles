@@ -25,7 +25,7 @@ rm -rf "$t"
 
 t=$(mktemp -d)
 pushd "$t"
-curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.43.0/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xzf -
+curl -Lq https://github.com/rtk-ai/rtk/releases/download/v0.45.0/rtk-aarch64-unknown-linux-gnu.tar.gz | tar xzf -
 mv rtk ~/.local/bin
 popd
 rm -rf "$t"
@@ -41,5 +41,6 @@ popd
 rm -rf "$t"
 
 if [ -x uv ]; then
-  uv tool install --upgrade 'cocoindex-code[full]'
+  uv tool install --upgrade 'cocoindex-code'
 fi
+echo 'export COCOINDEX_DISABLE_USAGE_TRACKING=1' >> ~/.bashrc
