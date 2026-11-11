@@ -18,7 +18,7 @@ ln -s /usr/bin/batcat ~/.local/bin/bat
 
 t=$(mktemp -d)
 pushd "$t"
-curl -Lq https://github.com/dandavison/delta/releases/download/0.19.2/delta-0.19.2-aarch64-unknown-linux-gnu.tar.gz | tar xzf - --strip-components=1
+curl -Lq https://github.com/dandavison/delta/releases/download/0.20.1/delta-0.20.1-aarch64-unknown-linux-gnu.tar.gz | tar xzf - --strip-components=1
 mv delta ~/.local/bin
 popd
 rm -rf "$t"
@@ -32,13 +32,11 @@ rm -rf "$t"
 mkdir -p ~/.config/rtk
 printf "[telemetry]\nenabled = false\n" >> ~/.config/rtk/config.toml
 
-t=$(mktemp -d)
-pushd "$t"
+pushd "$HOME"
 git clone --depth 1 --no-tags https://github.com/coderabbitai/git-worktree-runner.git
 cd git-worktree-runner
 ./install.sh
 popd
-rm -rf "$t"
 
 if [ -x uv ]; then
   uv tool install --upgrade 'cocoindex-code'
