@@ -38,6 +38,13 @@ cd git-worktree-runner
 ./install.sh
 popd
 
+t=$(mktemp -d)
+pushd "$t"
+curl -Lq https://github.com/k1LoW/git-wt/releases/download/v0.30.0/git-wt_v0.30.0_linux_arm64.tar.gz | tar xzf -
+mv git-wt ~/.local/bin
+popd
+rm -rf "$t"
+
 if [ -x uv ]; then
   uv tool install --upgrade 'cocoindex-code'
 fi
